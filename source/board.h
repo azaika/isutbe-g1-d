@@ -55,11 +55,11 @@ static void copy_board(board_type dest, const board_type src) {
 static board_type generate_board() {
     static int initial_board[BOARD_SIZE][BOARD_SIZE] = {
         {1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 4, 0, 4, 0, 1},
-        {1, 0, 0, 2, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 4, 0, 0, 1},
         {1, 0, 2, 0, 2, 0, 1},
+        {1, 0, 0, 4, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 2, 0, 0, 1},
+        {1, 0, 4, 0, 4, 0, 1},
         {1, 1, 1, 1, 1, 1, 1}
     };
 
