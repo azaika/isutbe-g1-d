@@ -31,6 +31,7 @@ int main(int argc, char** argv) {
     while (advance_turn(&gc)) {
         // for debugging
         print_board(gc.board);
+        printf("\n");
     }
 
     destroy_game(&gc);

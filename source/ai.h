@@ -9,11 +9,11 @@ static move_type ai_decide_move(board_type board, bool is_black) {
 
     // dummy process (re-write this!)
     move_type move;
-    move.from[0] = 0;
-    move.from[1] = 0;
+    move.from[0] = 1;
+    move.from[1] = 1;
 
-    move.to[0] = 0;
-    move.to[0] = 0;
+    move.to[0] = 1;
+    move.to[0] = 1;
 
     return move;
 }
