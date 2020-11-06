@@ -75,7 +75,6 @@ static bool parse_move(const char* input, move_type* move) {
       move->from[1] = str[1];
       move->to[0] = str[2];
       move->to[1] = str[3];
-      return true;
     }
   }
 }
