@@ -14,10 +14,10 @@ int main(int argc, char** argv) {
     }
     
     game_controller gc;
-    if (strcmp(argv[1], "0")) {
+    if (!strcmp(argv[1], "0")) {
         init_game(&gc, true);
     }
-    else if (strcmp(argv[0], "1")) {
+    else if (!strcmp(argv[1], "1")) {
         init_game(&gc, false);
     }
     else {
