@@ -13,7 +13,7 @@ static move_type ai_decide_move(board_type board, bool is_black) {
     move.from[1] = 1;
 
     move.to[0] = 1;
-    move.to[0] = 1;
+    move.to[1] = 1;
 
     return move;
 }
