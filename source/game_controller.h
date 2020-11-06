@@ -88,7 +88,16 @@ static bool parse_move(const char* input, move_type* move) {
 }
 
 static void move_piece(game_controller* gc, move_type move) {
-    // ToDo: implement
+    gc->board[move.from[0]][move.from[1]] = STATE_EMPTY;
+
+    cell_state piece;
+    if ((is_player_turn(gc) && gc->player_turn_parity == 0) ||
+        (!is_player_turn(gc) && gc->player_turn_parity == 1))
+        piece = STATE_BLACK;
+    else
+        piece = STATE_WHITE;
+
+    gc->board[move.to[0]][move.to[1]] = piece;
 }
 
 // returns 0 when no one win
