@@ -52,9 +52,9 @@ static bool validate_move(game_controller* gc, move_type move) {
 }
 
 static void print_move(move_type move) {
-    int from_y = 6 - move.from[0];
+    int from_y = move.from[0];
     char from_x = 'A' + move.from[1] - 1;
-    int to_y = 6 - move.to[0];
+    int to_y = move.to[0];
     char to_x = 'A' + move.to[1] - 1;
 
     printf("%d%c%d%c\n", from_y, from_x, to_y, to_x);
