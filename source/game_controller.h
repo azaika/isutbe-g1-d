@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 struct game_controller_tag {
     board_type board;
@@ -34,21 +35,54 @@ static bool is_player_turn(game_controller* gc) {
     return gc->turn % 2 == gc->player_turn_parity;
 }
 
+static int sign(int x) {
+    if (x > 0) return 1;
+    if (x < 0) return -1;
+    return 0;
+}
+
 static bool validate_move(game_controller* gc, move_type move) {
     assert(gc != NULL);
 
+    int from_y = move.from[0];
+    int from_x = move.from[1];
+    int to_y = move.to[0];
+    int to_x = move.to[1];
+    
+    cell_state piece;
     if (is_player_turn(gc)) {
         // player turn
-
-        // ToDo: implement
+        piece = ((gc->player_turn_parity == 0) ? STATE_BLACK : STATE_WHITE);
     }
     else {
         // cpu turn
-
-        // ToDo: implement
+        piece = ((gc->player_turn_parity == 1) ? STATE_BLACK : STATE_WHITE);
     }
+    
+    if (gc->board[from_y][from_x] != piece ||
+        gc->board[to_y][to_x] != STATE_EMPTY)
+        return false;
 
-    return false;
+    int dy = to_y - from_y;
+    int dx = to_x - from_x;
+
+    if (dy != 0 && dx != 0 && abs(dy) != abs(dx))
+        return false;
+
+    int sy = sign(dy);
+    int sx = sign(dx);
+    
+    int y = from_y + sy, x = from_x + sx;
+    while (y != to_y || x != to_x) {
+        if (gc->board[y][x] != STATE_EMPTY)
+            return false;
+        y += sy;
+        x += sx;
+    }
+    if (gc->board[to_y + sy][to_x + sx] == STATE_EMPTY)
+        return false;
+
+    return true;
 }
 
 static void print_move(move_type move) {
