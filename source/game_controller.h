@@ -201,8 +201,18 @@ static bool advance_turn(game_controller* gc) {
     move_type move = {};
     if (is_player_turn(gc)) {
         // player turn
+        char input[5];
+        scanf("%4s", input);
+        
+        if (!parse_move(input, &move)) {
+            perror("invalid input");
+            exit(1);
+        }
 
-        // ToDo: parse input and validate it
+        if (!validate_move(gc, move)) {
+            perror("invalid move");
+            exit(1);
+        }
     }
     else {
         // cpu turn
