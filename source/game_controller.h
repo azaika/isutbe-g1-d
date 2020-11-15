@@ -109,14 +109,15 @@ static bool parse_move(const char* input, move_type* move) {
     str[2] = input[2] - '0';
     str[3] = input[3] - '@';
 
-    if(str[0] <= 5 && str[0] >= 1 && str[1] <= 5 && str[1] >= 1 && str[2] <= 5 && str[2] >= 1 && str[3] <= 5 && str[3] >= 1)
-      return false;
+    if (str[0] <= 5 && str[0] >= 1 && str[1] <= 5 && str[1] >= 1 && str[2] <= 5 && str[2] >= 1 && str[3] <= 5 && str[3] >= 1) {
+        move->from[0] = str[0];
+        move->from[1] = str[1];
+        move->to[0] = str[2];
+        move->to[1] = str[3];
+        return true;
+    }
     else{
-      move->from[0] = str[0];
-      move->from[1] = str[1];
-      move->to[0] = str[2];
-      move->to[1] = str[3];
-      return true;
+      return false;
     }
   }
 }
