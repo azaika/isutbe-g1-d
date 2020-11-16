@@ -101,13 +101,38 @@ static bool _check_win(board_type board, bool is_black) {
     return false;
 }
 
+// return the number of possible move
+static int count_movable(board_type board, bool is_black) {
+    cell_state piece = is_black ? STATE_BLACK : STATE_WHITE;
+    int n = 0;
+
+    for (int y = 1; y <= FIELD_SIZE; ++y) {
+        for (int x = 1; x <= FIELD_SIZE; ++x) {
+            if (board[y][x] == piece) {
+                for (int dy = -1; dy <= 1; ++dy) {
+                    for (int dx = -1; dx <= 1; ++dx) {
+                        if (board[y + dy][x + dx] == STATE_EMPTY)
+                            ++n;
+                    }
+                }
+            }
+        }
+    }
+
+    return n;
+}
+
 #define max(a,b) ((a)>(b)?(a):(b))
 #define min(a,b) ((a)<(b)?(a):(b))
 
 // return the score of the best move between `alpha` and `beta`
 static int alphabeta(board_type board, bool is_black, bool is_ai, int depth, int maxdepth, int alpha, int beta) {
-    if (depth >= maxdepth)
-        return 0;
+    if (depth >= maxdepth) {
+        if (is_ai)
+            return count_movable(board, is_black);
+        else
+            return -count_movable(board, is_black);
+    }
 
     board_type next_board = alloc_board();
     coord_type self_pieces[3];
@@ -191,7 +216,7 @@ static bool alphabeta_init(move_type* move, int score_array[3][8], board_type bo
         from = self_pieces[i];
         for (int d = 0; d < 8; ++d) { // for each direction
             dir = direction(d);
-            if (score_array[i][d] < 0) // immovable or ai loses
+            if (score_array[i][d] < -30) // immovable or ai loses
                 continue;
 
             _move_piece(next_board, board, from, dir);
@@ -215,7 +240,7 @@ static bool alphabeta_init(move_type* move, int score_array[3][8], board_type bo
     coord_type to = find_to(board, from, dir);
     write_move(move, from, to);
 
-    return maxscore > 0; // whether ai wins or not
+    return maxscore > 30; // whether ai wins or not
 }
 
 #define IMMOVABLE (-999)
