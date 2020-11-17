@@ -268,7 +268,7 @@ static move_type ai_decide_move(board_type board, bool is_black) {
 
     int score_array[3][8];
     move_type move;
-    int depthlimit = 8; // maximum depth ai can search
+    int depthlimit = 9; // maximum depth ai can search
     bool ai_wins;
 
     initialize_score_array(score_array, board, is_black);
