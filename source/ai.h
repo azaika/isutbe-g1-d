@@ -217,8 +217,10 @@ static bool ai_alphabeta_init(move_type* move, int score_array[3][8], board_type
             score = ai_alphabeta(next_board, !is_black, false, 1, maxdepth, -110, 110);
             score_array[i][d] = score; // update score_array
 
-            if (score > 30)
+            if (score > 30) {
+                i = 2;
                 break;
+            }
         }
     }
 
