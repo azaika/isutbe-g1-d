@@ -216,6 +216,9 @@ static bool ai_alphabeta_init(move_type* move, int score_array[3][8], board_type
 
             score = ai_alphabeta(next_board, !is_black, false, 1, maxdepth, -110, 110);
             score_array[i][d] = score; // update score_array
+
+            if (score > 30)
+                break;
         }
     }
 
@@ -258,6 +261,32 @@ static move_type ai_decide_move(board_type board, bool is_black) {
     move_type move;
     int depthlimit = 9; // maximum depth ai can search
     bool ai_wins;
+
+    if (is_black) {
+        board_type initial_board = generate_board();
+
+        bool is_same = true;
+        for (int i = 1; i <= FIELD_SIZE; ++i) {
+            for (int j = 1; j <= FIELD_SIZE; ++j) {
+                if (board[i][j] != initial_board[i][j]) {
+                    is_same = false;
+                    i = j = FIELD_SIZE + 1;
+                }
+            }
+        }
+
+        free_board(initial_board);
+
+        move.from[0] = 1;
+        move.from[1] = 2;
+        move.to[0] = 1;
+        move.to[1] = 3;
+
+        if (is_same) {
+            return move;
+        }
+    }
+
 
     ai_initialize_score_array(score_array, board, is_black);
 
