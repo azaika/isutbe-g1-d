@@ -25,13 +25,17 @@ int main(int argc, char** argv) {
         return 0;
     }
 
+    #ifdef DEBUG
     // for debugging
     printf("init success!\n");
+    #endif
 
     while (advance_turn(&gc)) {
+        #ifdef DEBUG
         // for debugging
         print_board(gc.board);
         printf("\n");
+        #endif
     }
 
     destroy_game(&gc);
