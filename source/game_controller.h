@@ -199,13 +199,19 @@ static bool advance_turn(game_controller* gc) {
 		scanf("%4s", input);
 	
 		if (!parse_move(input, &move)) {
+			#ifdef DEBUG
 			perror("invalid input");
-			exit(1);
+			#endif
+			printf("You Lose\n");
+			return false;
 		}
 
 		if (!validate_move(gc, move)) {
-			perror("invalid move");
-			exit(1);
+			#ifdef DEBUG
+			perror("invalid input");
+			#endif
+			printf("You Lose\n");
+			return false;
 		}
 	}
 	else {
